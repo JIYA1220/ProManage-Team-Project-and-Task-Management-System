@@ -226,10 +226,13 @@ export const TaskCard = () => {
             .then(res => res.json())
             .then(json => {
                 if (json?.project?.members) {
-                    const emails = json.project.members.map(m => m.user.email);
+                    const emails = json.project.members
+                        .map(m => m.user?.email)
+                        .filter(email => Boolean(email));
                     setProjectMembers(emails);
                 }
-            });
+            })
+            .catch(err => console.error("Fetch project members error:", err));
         }
     }, [currentProjectId]);
 
@@ -429,13 +432,14 @@ export const TaskCard = () => {
 										</div>
 									)}
 									{(currentProjectId ? projectMembers : auth?.board)?.map((item, idx) => {
+                                        if (!item) return null;
 										return (
 											<div key={idx + "assign-box"}>
 												<div title={item}>
 													<span className="assign-circel">
 														{item
 															.split("")[0]
-															.toUpperCase()}
+															?.toUpperCase()}
 													</span>{" "}
 													{item}
 												</div>
