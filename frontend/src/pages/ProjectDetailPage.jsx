@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Backlog from "./Backlog";
@@ -17,18 +17,18 @@ import Loading from "../components/Loading";
 
 const ProjectDetailPage = () => {
     const { id } = useParams();
-    const [project, setProject] = useState(null);
-    const [backlogCollapse, setBacklogCollapse] = useState(false);
-    const [todoCollapse, setTodoCollapse] = useState(false);
-    const [progressCollapse, setProgressCollapse] = useState(false);
-    const [doneCollapse, setDoneCollapse] = useState(false);
-    const [showAddMember, setShowAddMember] = useState(false);
+    const [project, setProject] = React.useState(null);
+    const [backlogCollapse, setBacklogCollapse] = React.useState(false);
+    const [todoCollapse, setTodoCollapse] = React.useState(false);
+    const [progressCollapse, setProgressCollapse] = React.useState(false);
+    const [doneCollapse, setDoneCollapse] = React.useState(false);
+    const [showAddMember, setShowAddMember] = React.useState(false);
     
     const auth = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(setCurrentProjectId(id));
         dispatch(setLoading(true));
         fetch(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${id}`, {

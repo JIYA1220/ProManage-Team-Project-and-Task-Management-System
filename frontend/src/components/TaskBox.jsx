@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { TbDots } from "react-icons/tb";
 import { TaskMenu } from "./PopUp";
@@ -22,9 +22,9 @@ const TaskBox = ({
 	doneCollapse,
 	task,
 }) => {
-	const [collapse, setCollapse] = useState(true);
-	const [taskMenuP, setTaskMenuP] = useState(false);
-    const [load, setLoad] = useState("");
+	const [collapse, setCollapse] = React.useState(true);
+	const [taskMenuP, setTaskMenuP] = React.useState(false);
+    const [load, setLoad] = React.useState("");
 	const dispatch = useDispatch();
     const currentProjectId = useSelector((state) => state.state.currentProjectId);
 
@@ -62,14 +62,14 @@ const TaskBox = ({
         );
     };
 
-	useEffect(() => {
+	React.useEffect(() => {
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [taskMenuP]);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		setCollapse(true);
 	}, [backlogCollapse, todoCollapse, progressCollapse, doneCollapse]);
 	return (

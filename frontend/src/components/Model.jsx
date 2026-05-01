@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "../css/Model.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -31,8 +31,8 @@ import useUpdateCategory from "../hooks/useUpdateCategory";
 
 export const AddPeople = () => {
 	const dispatch = useDispatch();
-	const [email, setEmail] = useState("");
-	const [load, setLoad] = useState("");
+	const [email, setEmail] = React.useState("");
+	const [load, setLoad] = React.useState("");
 	const handleAddToBoard = (e) => {
 		const validError = checkValidEmail(email);
 		if (validError) {
@@ -95,7 +95,7 @@ export const AddedPeople = () => {
 
 export const UpdateCategory = () => {
 	const dispatch = useDispatch();
-	const [load, setLoad] = useState("");
+	const [load, setLoad] = React.useState("");
 	const { oldCategory, newCategory } = useSelector(
 		(store) => store.state.categoryName
 	);
@@ -173,7 +173,7 @@ export const Logout = () => {
 export const TaskDelete = () => {
 	const dispatch = useDispatch();
 	const id = useSelector((store) => store.state.taskMId);
-	const [load, setLoad] = useState("");
+	const [load, setLoad] = React.useState("");
 	const handleTaskDelete = (e) => {
 		useDeleteTask(e, setLoad, dispatch, id);
 	};
@@ -208,17 +208,17 @@ export const TaskCard = () => {
     const currentProjectId = useSelector((store) => store.state.currentProjectId);
 
 	const dispatch = useDispatch();
-	const [dueDate, setDueDate] = useState(task?.dueDate || "");
-	const [title, setTitle] = useState(task?.title || "");
-	const [priority, setPriority] = useState(task?.priority || "");
-	const [checklist, setChecklist] = useState(task?.checklist || []);
-	const [listBox, setListBox] = useState(task?.checklist?.length || 0);
-	const [load, setLoad] = useState("");
-	const [assignBox, setAssignBox] = useState(false);
-	const [assign, setAssign] = useState(task?.assign || "");
-    const [projectMembers, setProjectMembers] = useState([]);
+	const [dueDate, setDueDate] = React.useState(task?.dueDate || "");
+	const [title, setTitle] = React.useState(task?.title || "");
+	const [priority, setPriority] = React.useState(task?.priority || "");
+	const [checklist, setChecklist] = React.useState(task?.checklist || []);
+	const [listBox, setListBox] = React.useState(task?.checklist?.length || 0);
+	const [load, setLoad] = React.useState("");
+	const [assignBox, setAssignBox] = React.useState(false);
+	const [assign, setAssign] = React.useState(task?.assign || "");
+    const [projectMembers, setProjectMembers] = React.useState([]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (currentProjectId) {
             fetch(`${import.meta.env.VITE_BACKEND_URL}/api/projects/${currentProjectId}`, {
                 headers: getHeader()
@@ -582,7 +582,7 @@ export const TaskCard = () => {
 };
 export const TaskCardPublic = () => {
 	const { id } = useParams();
-	const [task, setTask] = useState([]);
+	const [task, setTask] = React.useState([]);
 	useGetTask(id, setTask);
 
 	return task?.length == 0 ? (

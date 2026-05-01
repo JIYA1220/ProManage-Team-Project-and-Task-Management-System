@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setProjectCardM } from "../redux/slices/stateSlice";
 import getHeader from "../utils/header";
@@ -7,12 +7,12 @@ import "../css/Dashboard.css";
 import { AiOutlinePlus } from "react-icons/ai";
 
 const ProjectsPage = () => {
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = React.useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const auth = useSelector((state) => state.auth);
 
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(setLoading(true));
         fetch(`${import.meta.env.VITE_BACKEND_URL}/api/projects`, {
             method: "GET",

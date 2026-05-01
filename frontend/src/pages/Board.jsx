@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Backlog from "./Backlog";
 import ToDo from "./ToDo";
 import InProgress from "./InProgress";
@@ -19,10 +19,10 @@ import {
 import { TaskFilter } from "../components/PopUp";
 import useAllTask from "../hooks/useAllTask";
 const Board = () => {
-	const [backlogCollapse, setBacklogCollapse] = useState(false);
-	const [todoCollapse, setTodoCollapse] = useState(false);
-	const [progressCollapse, setProgressCollapse] = useState(false);
-	const [doneCollapse, setDoneCollapse] = useState(false);
+	const [backlogCollapse, setBacklogCollapse] = React.useState(false);
+	const [todoCollapse, setTodoCollapse] = React.useState(false);
+	const [progressCollapse, setProgressCollapse] = React.useState(false);
+	const [doneCollapse, setDoneCollapse] = React.useState(false);
 	const auth = useSelector((store) => store.auth);
 	const taskFilter = useSelector((store) => store.state.taskFilterP);
 	const taskFilterName = useSelector((store) => store.state.taskFilterName);
@@ -33,7 +33,7 @@ const Board = () => {
 			dispatch(setTaskFilterP(false));
 		}
 	};
-	useEffect(() => {
+	React.useEffect(() => {
         dispatch(setCurrentProjectId(""));
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => {
