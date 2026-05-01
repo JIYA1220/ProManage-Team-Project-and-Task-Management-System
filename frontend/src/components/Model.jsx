@@ -28,6 +28,7 @@ import CheckBoxSelect from "../assets/checkbox_select.png";
 import useAddToBoard from "../hooks/useAddToBoard";
 import { checkValidEmail } from "../utils/validate";
 import useUpdateCategory from "../hooks/useUpdateCategory";
+import getHeader from "../utils/header";
 
 export const AddPeople = () => {
 	const dispatch = useDispatch();
