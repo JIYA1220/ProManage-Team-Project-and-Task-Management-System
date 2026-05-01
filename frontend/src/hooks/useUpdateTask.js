@@ -20,10 +20,11 @@ const useUpdateTask = (
 	assign,
 	dueDate,
 	dispatch,
-	id
+	id,
+    quiet = false
 ) => {
 	setLoad("Loading...");
-	e.target.disabled = true;
+	if (e && e.target) e.target.disabled = true;
 	fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${id}`, {
 		method: "PATCH",
 		headers: getHeader(),
@@ -38,9 +39,9 @@ const useUpdateTask = (
 		.then((response) => response.json())
 		.then((json) => {
 			setLoad("");
-			e.target.disabled = false;
+			if (e && e.target) e.target.disabled = false;
 			if (json?.message === "success") {
-				toast.success("Task Updated Successfully");
+				if (!quiet) toast.success("Task Updated Successfully");
 				if (json?.removeAssignCategory == "to-do") {
 					dispatch(deleteTodoTask(json.data));
 				} else if (json?.removeAssignCategory == "in-progress") {
@@ -60,8 +61,10 @@ const useUpdateTask = (
 						dispatch(updateDoneTask(json.data));
 					}
 				}
-				dispatch(setTaskCardM(false));
-				dispatch(setTaskM(""));
+				if (!quiet) {
+                    dispatch(setTaskCardM(false));
+				    dispatch(setTaskM(""));
+                }
 			} else {
 				toast.error(json?.message);
 			}
@@ -70,7 +73,7 @@ const useUpdateTask = (
 			console.error("Error:", error);
 			setLoad("");
 			toast.error("Something went wrong");
-			e.target.disabled = false;
+			if (e && e.target) e.target.disabled = false;
 		});
 };
 

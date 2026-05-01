@@ -32,6 +32,8 @@ main()
 
 async function main() {
 	await mongoose.connect(process.env.MONGODB_URI);
+    // Drop old unique index if it exists to fix task creation issues
+    mongoose.connection.collection('tasks').dropIndex('title_1').catch(() => {});
 }
 
 // Root route

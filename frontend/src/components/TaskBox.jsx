@@ -57,7 +57,8 @@ const TaskBox = ({
             task.assign,
             task.dueDate,
             dispatch,
-            task._id
+            task._id,
+            true
         );
     };
 

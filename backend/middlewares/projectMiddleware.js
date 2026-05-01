@@ -4,7 +4,8 @@ const wrapAsync = require("./wrapAsync");
 const isProjectAdmin = wrapAsync(async (req, res, next) => {
     const projectId = req.params.projectId || req.params.id || req.body.projectId;
     if (!projectId) {
-        return res.status(400).json({ message: "Project ID is required" });
+        // If no project ID, assume it's a personal task and allow
+        return next();
     }
 
     const project = await Project.findById(projectId);
@@ -28,7 +29,8 @@ const isProjectAdmin = wrapAsync(async (req, res, next) => {
 const isProjectMember = wrapAsync(async (req, res, next) => {
     const projectId = req.params.projectId || req.params.id || req.body.projectId;
     if (!projectId) {
-        return res.status(400).json({ message: "Project ID is required" });
+        // If no project ID, assume it's a personal task and allow
+        return next();
     }
 
     const project = await Project.findById(projectId);
